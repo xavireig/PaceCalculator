@@ -4,5 +4,6 @@
     <string name="app_name">PaceCalculator</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="banner_ad_unit_id">ca-app-pub-4932005483068263/4563629873</string>
 
 </resources>
