@@ -1,12 +1,9 @@
 package xavireig.com.pacecalculator;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -14,8 +11,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import java.math.BigDecimal;
 
 
@@ -25,11 +20,17 @@ public class main extends Activity {
     private float distance;
     private int h, m, s;
     private int unit;       // 0 - Km     1 - Miles
+    private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
+    private static com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        // Tappx ad banner creation
+        adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
+
         //Getting View Flipper from main.xml and assigning to flipper reference variable
         viewFlipper = (ViewFlipper)findViewById(R.id.viewFlipper);
         initializations();
@@ -201,64 +202,18 @@ public class main extends Activity {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
-    public static class AdFragment extends Fragment {
-
-        private AdView mAdView;
-
-        public AdFragment() {
-        }
-
-        @Override
-        public void onActivityCreated(Bundle bundle) {
-            super.onActivityCreated(bundle);
-
-            // Gets the ad view defined in layout/ad_fragment.xml with ad unit ID set in
-            // values/strings.xml.
-            mAdView = (AdView) getView().findViewById(R.id.adView);
-
-            // Create an ad request. Check logcat output for the hashed device ID to
-            // get test ads on a physical device. e.g.
-            // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-            AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .build();
-
-            // Start loading the ad in the background.
-            mAdView.loadAd(adRequest);
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_ad, container, false);
-        }
-
-        /** Called when leaving the activity */
-        @Override
-        public void onPause() {
-            if (mAdView != null) {
-                mAdView.pause();
-            }
-            super.onPause();
-        }
-
-        /** Called when returning to the activity */
-        @Override
-        public void onResume() {
-            super.onResume();
-            if (mAdView != null) {
-                mAdView.resume();
-            }
-        }
-
-        /** Called before the activity is destroyed */
-        @Override
-        public void onDestroy() {
-            if (mAdView != null) {
-                mAdView.destroy();
-            }
-            super.onDestroy();
-        }
-
+    @Override
+    public void onPause() {
+        com.tappx.TAPPXAdBanner.Pause(adBanner);
+        super.onPause();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        com.tappx.TAPPXAdBanner.Resume(adBanner);
+    }
+    @Override protected void onDestroy() {
+        com.tappx.TAPPXAdBanner.Destroy(adBanner);
+        super.onDestroy();
     }
 }

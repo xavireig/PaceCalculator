@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ViewFlipper;
 
 
 public class Splash extends Activity {
 
-    private final int DURATION = 3000;
+    private final int DURATION = 5000;
     private Thread mSplashThread;
+    private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,7 @@ public class Splash extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash);
+        com.tappx.TAPPXAdInterstitial.ConfigureAndShow(this, TAPPX_KEY);
 
         mSplashThread = new Thread() {
 
