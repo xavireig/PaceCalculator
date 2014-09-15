@@ -28,6 +28,7 @@ public class main extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        com.tappx.TAPPXAdInterstitial.ConfigureAndShow(this, TAPPX_KEY);
         // Tappx ad banner creation
         adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
 
