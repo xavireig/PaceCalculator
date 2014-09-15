@@ -21,7 +21,7 @@ public class main extends Activity {
     private int h, m, s;
     private int unit;       // 0 - Km     1 - Miles
     private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
-    private static com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
+    private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
