@@ -1,9 +1,9 @@
 package xavireig.com.pacecalculator;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +12,6 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
-
-import com.google.android.gms.ads.AdListener;
-
 import java.math.BigDecimal;
 
 
@@ -26,20 +23,15 @@ public class main extends Activity {
     private int unit;       // 0 - Km     1 - Miles
     private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
     private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
-    private static Activity myActivity;
+    private boolean exit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        myActivity = this;
-        com.tappx.TAPPXAdInterstitial.ConfigureAndShow(this, TAPPX_KEY,new AdListener() {
-                    @Override public void onAdClosed() {
-                        // Tappx ad banner creation
-                        adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(myActivity, adBanner, TAPPX_KEY);
-                    }
-                }
-        );
+
+        // Tappx ad banner creation
+        adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
 
         //Getting View Flipper from main.xml and assigning to flipper reference variable
         viewFlipper = (ViewFlipper)findViewById(R.id.viewFlipper);
@@ -225,5 +217,24 @@ public class main extends Activity {
     @Override protected void onDestroy() {
         com.tappx.TAPPXAdBanner.Destroy(adBanner);
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (exit)
+            this.finish();
+        else {
+            Toast.makeText(this, "Press again to quit",
+                    Toast.LENGTH_SHORT).show();
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    exit = false;
+                }
+            }, 3 * 1000);
+
+        }
+
     }
 }
