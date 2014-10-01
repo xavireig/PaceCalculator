@@ -36,7 +36,6 @@ public class main extends Activity {
 
         // Tappx ad banner creation
         adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
-
         adBanner2 = com.tappx.TAPPXAdBanner.ConfigureAndShowAtTop(this, adBanner2, TAPPX_KEY2);
 
         //Getting View Flipper from main.xml and assigning to flipper reference variable
