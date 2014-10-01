@@ -22,7 +22,11 @@ public class main extends Activity {
     private int h, m, s;
     private int unit;       // 0 - Km     1 - Miles
     private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
+    private final String TAPPX_KEY2 = "/120940746/Pub-2236-Android-2389";
+
     private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
+
+    private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner2 = null;
     private boolean exit = false;
 
     @Override
@@ -32,6 +36,8 @@ public class main extends Activity {
 
         // Tappx ad banner creation
         adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
+
+        adBanner2 = com.tappx.TAPPXAdBanner.ConfigureAndShowAtTop(this, adBanner2, TAPPX_KEY2);
 
         //Getting View Flipper from main.xml and assigning to flipper reference variable
         viewFlipper = (ViewFlipper)findViewById(R.id.viewFlipper);
@@ -217,24 +223,5 @@ public class main extends Activity {
     @Override protected void onDestroy() {
         com.tappx.TAPPXAdBanner.Destroy(adBanner);
         super.onDestroy();
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (exit)
-            this.finish();
-        else {
-            Toast.makeText(this, "Press again to quit",
-                    Toast.LENGTH_SHORT).show();
-            exit = true;
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    exit = false;
-                }
-            }, 3 * 1000);
-
-        }
-
     }
 }
