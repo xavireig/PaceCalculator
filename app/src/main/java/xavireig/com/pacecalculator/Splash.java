@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 public class Splash extends Activity {
 
-    private final int DURATION = 5000;
+    private final int DURATION = 3500;
     private Thread mSplashThread;
 
     @Override

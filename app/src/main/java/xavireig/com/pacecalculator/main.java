@@ -1,10 +1,13 @@
 package xavireig.com.pacecalculator;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -12,6 +15,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.math.BigDecimal;
 
 
@@ -22,7 +29,10 @@ public class main extends Activity {
     private int h, m, s;
     private int unit;       // 0 - Km     1 - Miles
     private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
+    private final String TAPPX_KEY2 = "/120940746/Pub-2167-Android-6569";
+
     private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
+    private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner2 = null;
     private boolean exit = false;
 
     @Override
@@ -31,8 +41,8 @@ public class main extends Activity {
         setContentView(R.layout.main);
 
         // Tappx ad banner creation
-        adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
-
+        //adBanner = com.tappx.TAPPXAdBanner.ConfigureAndShowAtBottom(this, adBanner, TAPPX_KEY);
+        //adBanner2 = com.tappx.TAPPXAdBanner.ConfigureAndShowAtTop(this, adBanner2, TAPPX_KEY2);
         //Getting View Flipper from main.xml and assigning to flipper reference variable
         viewFlipper = (ViewFlipper)findViewById(R.id.viewFlipper);
         initializations();
@@ -207,15 +217,18 @@ public class main extends Activity {
     @Override
     public void onPause() {
         com.tappx.TAPPXAdBanner.Pause(adBanner);
+        com.tappx.TAPPXAdBanner.Pause(adBanner2);
         super.onPause();
     }
     @Override
     public void onResume() {
         super.onResume();
         com.tappx.TAPPXAdBanner.Resume(adBanner);
+        com.tappx.TAPPXAdBanner.Resume(adBanner2);
     }
     @Override protected void onDestroy() {
         com.tappx.TAPPXAdBanner.Destroy(adBanner);
+        com.tappx.TAPPXAdBanner.Destroy(adBanner2);
         super.onDestroy();
     }
 
@@ -236,5 +249,42 @@ public class main extends Activity {
 
         }
 
+    }
+
+    /**
+     * A placeholder fragment containing a simple view. This fragment
+     * would include your content.
+     */
+    public static class PlaceholderFragment extends Fragment {
+
+        public PlaceholderFragment() {
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+            return rootView;
+        }
+    }
+
+    /**
+     * This class makes the ad request and loads the ad.
+     */
+    public static class AdFragment extends Fragment {
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.fragment_ad, container, false);
+        }
+
+        @Override
+        public void onActivityCreated(Bundle bundle) {
+            super.onActivityCreated(bundle);
+            AdView mAdView = (AdView) getView().findViewById(R.id.adView);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
+        }
     }
 }
