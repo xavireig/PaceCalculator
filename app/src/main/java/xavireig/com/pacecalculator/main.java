@@ -28,7 +28,7 @@ public class main extends Activity {
     private float distance;
     private int h, m, s;
     private int unit;       // 0 - Km     1 - Miles
-    private final String TAPPX_KEY = "/120940746/Pub-2167-Android-6569";
+    private final String TAPPX_KEY = "/120940746/Pub-2236-Android-2389";
     private final String TAPPX_KEY2 = "/120940746/Pub-2167-Android-6569";
 
     private com.google.android.gms.ads.doubleclick.PublisherAdView adBanner = null;
