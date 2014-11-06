@@ -273,18 +273,18 @@ public class main extends Activity {
      */
     public static class AdFragment extends Fragment {
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_ad, container, false);
-        }
+                @Override
+                public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                         Bundle savedInstanceState) {
+                    return inflater.inflate(R.layout.fragment_ad, container, false);
+                }
 
-        @Override
-        public void onActivityCreated(Bundle bundle) {
-            super.onActivityCreated(bundle);
-            AdView mAdView = (AdView) getView().findViewById(R.id.adView);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
+                @Override
+                public void onActivityCreated(Bundle bundle) {
+                    super.onActivityCreated(bundle);
+                    AdView mAdView = (AdView) getView().findViewById(R.id.adView);
+                    AdRequest adRequest = new AdRequest.Builder().build();
+                    mAdView.loadAd(adRequest);
         }
     }
 }
